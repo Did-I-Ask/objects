@@ -1,0 +1,35 @@
+import pygame
+from time import sleep
+from random import randint
+pygame.init()
+
+window = pygame.display.set_mode((500, 500))
+
+class Rect:
+    def __init__(self, x, y, w, h):
+        self.x_pos = x
+        self.y_pos = y
+        self.width = w
+        self.height = h
+        self.surface = pygame.Surface((self.width, self.height))
+        self.surface.fill("RED")
+    def draw(self):
+        window.blit(self.surface, (self.x_pos, self.y_pos))
+
+    def update(self):
+        self.y_pos += 4
+        if self.y_pos > 500:
+            self.y_pos =  - self.width
+rect_list = []
+
+for i in range(80):
+    rect = Rect(i * 20, randint(0, 500), 10, 10)
+    rect_list.append(rect)
+
+while True:
+    window.fill(0)
+    for i in range(80):
+        rect_list[i].draw()
+        rect_list[i].update()
+    pygame.display.update()
+    sleep(10/1000)
